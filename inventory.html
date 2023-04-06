@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+
+        <div style="margin: auto; width: 500px;margin-top: 40px;">
+
+       
+        <form @submit.prevent="addItem">
+            <input class="form-control" v-model="newItem" style="width:400px;margin-bottom: 30px;">
+            {{newItem}}
+        </form>
+
+        <ul style="width:400px;">
+            <li style="background-color: tomato;margin-top: 3px; padding: 7px;" v-for="(item,index) in items" :key='index'>{{item.name}} - <input v-model="item.price"> <button @click="removeItem">Delete</button></li>
+            <li>Total: {{ total }}</li>
+        </ul>
+    </div>  
+    </div> 
+    
+
+    <script>
+        new Vue({
+          el: "#app",
+          data: {
+            items: [
+                {name:'rice', price:98},
+                {name:'erice', price:78},
+                {name:'55erice', price:788}
+            ],
+            newItem: ""
+          },
+          computed: {
+             total(){
+                var total = 0
+                this.items.forEach(item => {
+                    total += parseFloat(item.price)
+                })
+                return total
+             }
+          },
+
+          methods:{
+            addItem(){
+                this.items.push({
+                    name: this.newItem,
+                    price: 0
+                })
+            },
+            removeItem(index){
+                this.items.splice(index,1)
+            }
+          }
+        })
+      </script>
+    
+    
+</body>
+</html>
